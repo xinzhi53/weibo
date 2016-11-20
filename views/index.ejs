@@ -1,0 +1,63 @@
+
+<% include header.ejs %>
+
+
+<%if(!user){%>
+<!--  巨幕部分 -->
+<div class="container">
+<div class="jumbotron">
+  <h1>Hello, world!</h1>
+  <p>
+  	<a class="btn btn-primary btn-lg" href="#" role="button">登录</a>
+  	<a class="btn btn-primary btn-lg" href="#" role="button">注册</a>
+  </p>
+</div>
+</div>
+<%} else {%>
+<form action="/postmsg" method="post" style="text-align:center;" class="well form-inline center">
+	<input type="text" name="content" class="col-sm-8 col-sm-offset-1">
+	<button type="submit" style="float:left;margin-left:10px;" class="btn btn-success">
+		<i class="glyphicon glyphicon-comment">发言</i>
+	</button>
+	<div style="clear:both;"></div>
+</form>
+<%}%>
+
+
+<%if(user){%>
+<!-- 栅格部分 -->
+
+<%messages.forEach(function(ele,index){ %>
+	<%if(index % 3 == 0){ %>
+	<div class="row">
+	<%} %>
+	<div class="col-sm-4">
+		<h2>
+			<a href="/"><%=ele.username%></a>说
+		</h2>	
+		<p><small></small></p>
+		<p><%=ele.content%></p>
+	</div>
+	<%if(index % 3 == 2){ %>
+		</div>
+	<%}%>
+
+<%})%>
+
+
+<!-- 结束时不足3个、需要补充最后的结束</div> -->
+<%if(messages.length %3 != 0){%>
+	</div>
+<%}%>
+
+
+<%}%>
+
+
+
+
+<% include footer.ejs %>
+
+
+
+	
